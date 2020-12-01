@@ -10,7 +10,7 @@
   ["/temperature-converter" {:coercion rcs/coercion}
    ["" ::index]])
 
-;;; Index
+;;; Handlers
 
 (defn ^::c/event-db index [_ _] {})
 

@@ -12,7 +12,7 @@
    ["/show" ::show]
    ["/increment" ::increment]])
 
-;;; Index
+;;; Handlers
 
 (defn ^::c/event-fx index
   "Initialize counter."

@@ -10,7 +10,7 @@
         fahrenheit      @(rf/subscribe [::temperature-converter.c/fahrenheit])
         from-celsius    #(rf/dispatch [::temperature-converter.c/from-celsius (-> % .-target .-value)])
         from-fahrenheit #(rf/dispatch [::temperature-converter.c/from-fahrenheit (-> % .-target .-value)])]
-    [:div.field.columns
+    [:div.field.columns.form-bound
      [:div.control.column
       [:label.label "Celsius"]
       [:input.input {:type "number" :value (or celsius "") :on-change from-celsius}]]
