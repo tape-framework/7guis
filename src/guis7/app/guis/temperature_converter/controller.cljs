@@ -17,21 +17,21 @@
 (defn ^::c/event-db from-celsius [db [_ celsius]]
   (merge db
          {::celsius   celsius
-          ::farenheit (if (string/blank? celsius)
+          ::fahrenheit (if (string/blank? celsius)
                         ""
-                        (temperature-converter.m/celsius->farenheit (js/parseFloat celsius)))}))
+                        (temperature-converter.m/celsius->fahrenheit (js/parseFloat celsius)))}))
 
-(defn ^::c/event-db from-farenheit [db [_ farenheit]]
+(defn ^::c/event-db from-fahrenheit [db [_ fahrenheit]]
   (merge db
-         {::farenheit farenheit
-          ::celsius   (if (string/blank? farenheit)
+         {::fahrenheit fahrenheit
+          ::celsius   (if (string/blank? fahrenheit)
                         ""
-                        (temperature-converter.m/farenheit->celsius (js/parseFloat farenheit)))}))
+                        (temperature-converter.m/fahrenheit->celsius (js/parseFloat fahrenheit)))}))
 
 ;;; Sub
 
 (defn ^::c/sub celsius [db _] (::celsius db))
-(defn ^::c/sub farenheit [db _] (::farenheit db))
+(defn ^::c/sub fahrenheit [db _] (::fahrenheit db))
 
 ;;; Module
 
