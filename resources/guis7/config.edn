@@ -1,0 +1,20 @@
+{:tape.mvc.controller/module nil
+ :tape.mvc.view/module nil
+ :tape.mvc/module nil
+ :tape.router/module nil
+ :guis7.app.home.controller/module nil
+ :guis7.app.home.view/module nil
+ :guis7.app.guis.counter.controller/module nil
+ :guis7.app.guis.counter.view/module nil
+ :guis7.app.guis.temperature-converter.controller/module nil
+ :guis7.app.guis.temperature-converter.view/module nil
+ :guis7.app.guis.flight-booker.controller/module nil
+ :guis7.app.guis.flight-booker.view/module nil
+ :guis7.app.guis.timer.controller/module nil
+ :guis7.app.guis.timer.view/module nil
+ :guis7.app.guis.crud.controller/module nil
+ :guis7.app.guis.crud.view/module nil
+ :guis7.app.guis.circle-drawer.controller/module nil
+ :guis7.app.guis.circle-drawer.view/module nil
+ :guis7.app.guis.cells.controller/module nil
+ :guis7.app.guis.cells.view/module nil}
