@@ -24,10 +24,10 @@
 
 (defn ^::v/view index []
   (let [lens   (tools/lens ::flight-booker.c/booking ::flight-booker.c/field)
-        errors @(rf/subscribe [::flight-booker.c/booking-errors])
         kind   (lens [:kind])
         leave  (lens [:leave])
         return (lens [:return])
+        errors (lens [:errors])
         valid  (lens [:valid])
         booked (lens [:booked])]
     [:div.form-bound
@@ -49,7 +49,7 @@
        (list-errors (:return errors))]]
      [:div.field.is-grouped
       [:div.control
-       [:a.button.is-info {:href (router/href [::flight-booker.c/book])
+       [:a.button.is-info {:href     (router/href [::flight-booker.c/book])
                            :disabled (not valid)} "Book"]]
       (if booked
         [:div.control.is-flex.is-align-items-center
