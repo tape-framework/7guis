@@ -8,6 +8,7 @@
    [tape.module :as module :include-macros true]
    [tape.mvc]
    [tape.router :as router]
+   [tape.tools.timeouts.controller]
    [guis7.app.layouts.view :as layouts.v]
    [guis7.app.home.controller :as home.c]
    [guis7.app.home.view]

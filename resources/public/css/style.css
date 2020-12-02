@@ -1,3 +1,7 @@
 .form-bound {
   max-width: 400px;
 }
+
+.fullwidth {
+  width: 100%;
+}
