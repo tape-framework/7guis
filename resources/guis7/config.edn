@@ -3,6 +3,7 @@
  :tape.mvc/module nil
  :tape.router/module nil
  :tape.tools.timeouts.controller/module nil
+ :tape.toasts.controller/module nil
  :guis7.app.home.controller/module nil
  :guis7.app.home.view/module nil
  :guis7.app.guis.counter.controller/module nil

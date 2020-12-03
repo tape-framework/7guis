@@ -1,7 +1,7 @@
-.form-bound {
-  max-width: 400px;
+.is-bound {
+  max-width: 500px;
 }
 
-.fullwidth {
+.is-fullwidth {
   width: 100%;
 }

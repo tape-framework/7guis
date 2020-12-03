@@ -3,6 +3,7 @@
             [re-frame.core :as rf]
             [tape.mvc.view :as v]
             [tape.router :as router]
+            [tape.toasts.view :as toasts.v]
             [guis7.app.home.controller :as home.c]
             [guis7.app.guis.counter.controller :as counter.c]
             [guis7.app.guis.temperature-converter.controller :as temperature-converter.c]
@@ -51,4 +52,5 @@
          [current-view-fn])]]
      [:footer.footer
       [:div.container
-       "© 2020 clyfe"]]]))
+       "© 2020 clyfe"]]
+     [toasts.v/index]]))

@@ -4,6 +4,7 @@
            com.andrewmcveigh/cljs-time {}
            tape/mvc                    {:local/root "../mvc"}
            tape/router                 {:local/root "../router"}
-           tape/tools                  {:local/root "../tools"}}
+           tape/tools                  {:local/root "../tools"}
+           tape/toasts                 {:local/root "../toasts"}}
  :aliases {:test {:extra-paths ["dev/api" "dev/src" "target"]
                   :extra-deps  {tape/dev {:local/root "../dev"}}}}}

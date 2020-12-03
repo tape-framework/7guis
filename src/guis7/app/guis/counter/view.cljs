@@ -8,7 +8,7 @@
 
 (defn ^::v/view index []
   (let [cnt @(rf/subscribe [::counter.c/count])]
-    [:div.field.has-addons.form-bound
+    [:div.field.has-addons.is-bound
      [:div.control
       [:input.input {:type "number" :value cnt :read-only true}]]
      [:div.control
