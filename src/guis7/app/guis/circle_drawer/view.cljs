@@ -37,17 +37,20 @@
       [:p.control
        [:button.button {:disabled (not redo?)
                         :on-click #(when redo? (rf/dispatch [::circle-drawer.c/redo]))} "Redo"]]]
+
      [:div.circle-drawer {:on-click create :on-mouse-move select}
       (for [[i [x y r]] circles :let [d (* 2 r)]]
         [:div.circle {:key             i,
                       :class           (when (= i selected) "is-selected")
                       :on-context-menu (when (= i selected) activate)
                       :style           {:left (- x r) :top (- y r) :width d :height d}}])]
+
      [:div.modal {:class (when activated? "is-active")}
       [:div.modal-background]
       [:div.modal-content
        [:button.button.is-primary {:on-click #(rf/dispatch [::circle-drawer.c/edit])} "Adjust diameter..."]]
       [:button.modal-close.is-large {:on-click #(rf/dispatch [::circle-drawer.c/deactivate])}]]
+
      [:div.modal {:class (when editing? "is-active")}
       [:div.modal-background]
       [:div.modal-content

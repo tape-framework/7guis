@@ -34,7 +34,7 @@
            (ckw :undo?)      true
            (ckw :redo)       false
            (ckw :circles)    {1 [100 100 30]}})
-  
+
 (defn snapshot [db]
   (let [snapshot-i (inc ((ckw :snapshot-i) db))
         circles    ((ckw :circles) db)]
