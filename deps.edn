@@ -3,7 +3,6 @@
            com.novemberain/validateur  {}
            com.andrewmcveigh/cljs-time {}
            instaparse/instaparse       {}
-           me.raynes/fs                {:mvn/version "1.4.6"}
            tape/mvc                    {:local/root "../mvc"}
            tape/router                 {:local/root "../router"}
            tape/tools                  {:local/root "../tools"}
