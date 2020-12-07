@@ -9,7 +9,7 @@
   ["/cells" {:coercion rcs/coercion}
    ["" ::index]])
 
-;;; Index
+;;; Handlers
 
 (defn ^::c/event-db index [_ _]
   {::cells (cells.m/make-data 5 5)})
