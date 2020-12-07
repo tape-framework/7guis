@@ -16,11 +16,13 @@ See https://eugenkiss.github.io/7guis/
 
 ```clojure
 (fig/dev)
-;; Open http://localhost:9500/
-(in-ns 'tape.dev)
-(go)
+;; Opens http://localhost:9500/
 ```
 
+```clojure
+(in-ns 'guis7.dev)
+(repl/reset)
+```
 
 #### License
 
