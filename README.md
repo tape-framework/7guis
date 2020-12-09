@@ -11,7 +11,7 @@ See https://eugenkiss.github.io/7guis/
 
 ```bash
 cd 7guis
-CLJ_CONFIG=../versions/ clj -Aversions:testCLJ_CONFIG=../versions/ clj -Aversions:test
+CLJ_CONFIG=../versions/ clj -Aversions:test
 ```
 
 ```clojure
