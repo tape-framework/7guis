@@ -9,7 +9,7 @@
    [tape.router :as router]
    [tape.tools.timeouts.controller]
    [tape.toasts.controller]
-   [guis7.app.layouts.view :as layouts.v]
+   [guis7.app.layouts.app :as app]
    [guis7.app.home.controller :as home.c]))
 
 (mvc/require-modules "src/guis7/app")
@@ -18,7 +18,7 @@
 
 (defmethod ig/init-key ::main [_ _]
   (rf/dispatch-sync [::router/navigate [::home.c/index]])
-  (dom/render [layouts.v/app] (goog.dom/getElement "app")))
+  (dom/render [app/app] (goog.dom/getElement "app")))
 
 ;;; System
 
@@ -27,7 +27,8 @@
 (def config
   (merge (module/read-config "guis7/config.edn")
          (:modules modules-discovery)
-         {:tape.profile/base {::main (ig/ref :tape.mvc/main)
-                              ::router/routes (apply merge (:routes modules-discovery))
+         {:tape.profile/base {::router/routes (into [""] (:routes modules-discovery))
                               :tape/router    {:routes  (ig/ref ::router/routes)
-                                               :options {:conflicts nil}}}}))
+                                               :options {:conflicts nil}}
+                              ::mvc/main {:router (ig/ref :tape/router)}
+                              ::main (ig/ref ::mvc/main)}}))

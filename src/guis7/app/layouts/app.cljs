@@ -1,4 +1,4 @@
-(ns guis7.app.layouts.view
+(ns guis7.app.layouts.app
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [tape.mvc.view :as v]
