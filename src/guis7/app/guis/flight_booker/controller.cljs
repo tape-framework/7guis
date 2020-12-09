@@ -12,7 +12,7 @@
 
 ;;; Helpers
 
-(defn add-field
+(defn- add-field
   "A setter of sorts, adds the k-v to the map and updates errors and derivatives. Lives in the controller because it
   gives a controller-centric view of the model that mirrors what we show in the view (the errors part)."
   [booking k v]

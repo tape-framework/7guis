@@ -1,8 +1,7 @@
 (ns guis7.app.guis.temperature-converter.controller
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
-            [guis7.app.guis.temperature-converter.model :as temperature-converter.m]
-            [clojure.string :as string]))
+            [guis7.app.guis.temperature-converter.model :as temperature-converter.m]))
 
 ;;; Routes
 
@@ -15,18 +14,14 @@
 (defn ^::c/event-db index [_ _] {})
 
 (defn ^::c/event-db from-celsius [db [_ celsius]]
-  (merge db
-         {::celsius   celsius
-          ::fahrenheit (if (string/blank? celsius)
-                        ""
-                        (temperature-converter.m/celsius->fahrenheit (js/parseFloat celsius)))}))
+  (assoc db
+    ::celsius celsius
+    ::fahrenheit (temperature-converter.m/->fahrenheit celsius)))
 
 (defn ^::c/event-db from-fahrenheit [db [_ fahrenheit]]
-  (merge db
-         {::fahrenheit fahrenheit
-          ::celsius   (if (string/blank? fahrenheit)
-                        ""
-                        (temperature-converter.m/fahrenheit->celsius (js/parseFloat fahrenheit)))}))
+  (assoc db
+    ::fahrenheit fahrenheit
+    ::celsius (temperature-converter.m/->celsius fahrenheit)))
 
 ;;; Sub
 
