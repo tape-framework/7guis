@@ -10,8 +10,7 @@
    [tape.tools.timeouts.controller]
    [tape.toasts.controller]
    [guis7.app.layouts.view :as layouts.v]
-   [guis7.app.home.controller :as home.c]
-   [tape.mvc :as mvc]))
+   [guis7.app.home.controller :as home.c]))
 
 (mvc/require-modules "src/guis7/app")
 
