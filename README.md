@@ -10,8 +10,8 @@ See https://eugenkiss.github.io/7guis/
 #### Usage
 
 ```bash
-> cd 7guis
-> CLJ_CONFIG=../versions/ clj -Aversions:test
+cd 7guis
+CLJ_CONFIG=../versions/ clj -Aversions:testCLJ_CONFIG=../versions/ clj -Aversions:test
 ```
 
 ```clojure
