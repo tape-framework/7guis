@@ -11,7 +11,7 @@
 
 ;;; Index
 
-(defn ^::c/event-fx index [_ _] {:db {}})
+(defn ^::c/event-db index [_ _] {})
 
 ;;; Module
 

@@ -7,7 +7,8 @@
 (defn ^::v/view index []
   [:p
    "7GUIs based on "
-   [:a {:href "https://eugenkiss.github.io/7guis/"} "https://eugenkiss.github.io/7guis/"]])
+   [:a {:href "https://eugenkiss.github.io/7guis/"} "https://eugenkiss.github.io/7guis/"]
+   "."])
 
 ;;; Module
 
