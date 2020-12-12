@@ -1,6 +1,6 @@
 ^{:watch-dirs ["src" "dev/src"]
   :css-dirs ["resources/public/css"]
   :ring-handler tape.dev.server/handler}
-{:main guis7.dev
+{:main tape.guis7.dev
  :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
  :preloads [devtools.preload day8.re-frame-10x.preload]}

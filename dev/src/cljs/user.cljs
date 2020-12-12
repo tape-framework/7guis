@@ -1,2 +1,2 @@
 (ns cljs.user
-  (:require [guis7.dev]))
+  (:require [tape.guis7.dev]))
