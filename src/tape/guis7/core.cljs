@@ -17,7 +17,6 @@
 (module/load-hierarchy)
 
 (defmethod ig/init-key ::main [_ _]
-  (rf/dispatch-sync [::router/navigate [::home.c/index]])
   (dom/render [app/app] (goog.dom/getElement "app")))
 
 ;;; System
