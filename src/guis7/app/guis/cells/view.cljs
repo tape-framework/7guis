@@ -2,8 +2,7 @@
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [tape.mvc.view :as v :include-macros true]
-            [guis7.app.guis.cells.controller :as cells.c]
-            [guis7.app.guis.cells.model :as cells.m]))
+            [guis7.app.guis.cells.controller :as cells.c]))
 
 ;;; Helpers
 
