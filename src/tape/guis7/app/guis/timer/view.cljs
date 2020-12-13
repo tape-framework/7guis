@@ -1,8 +1,8 @@
 (ns tape.guis7.app.guis.timer.view
   (:require [reagent.core :as r]
             [tape.mvc.view :as v :include-macros true]
-            [tape.router :as router]
-            [tape.tools :as tools]
+            [tape.router :as router :include-macros true]
+            [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.timer.controller :as timer.c]))
 
 ;;; Helpers
@@ -13,7 +13,7 @@
 ;;; Views
 
 (defn ^::v/view index []
-  (let [lens     (tools/lens ::timer.c/timer ::timer.c/field)
+  (let [lens     (tools/lens timer.c/timer timer.c/field)
         progress (lens [:progress])
         duration (r/cursor lens [:duration])]
     [:div.is-bound
@@ -29,7 +29,7 @@
                              :value     @duration
                              :on-change #(reset! duration (-> % .-target .-value js/parseFloat))}]]]
      [:div.control
-      [:a.button.is-info {:href (router/href [::timer.c/index])} "Reset"]]]))
+      [:a.button.is-info {:href (router/href [timer.c/index])} "Reset"]]]))
 
 ;;; Module
 

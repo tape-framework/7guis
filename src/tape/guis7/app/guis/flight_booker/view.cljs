@@ -1,8 +1,6 @@
 (ns tape.guis7.app.guis.flight-booker.view
-  (:require [re-frame.core :as rf]
-            [tape.mvc.view :as v :include-macros true]
-            [tape.router :as router]
-            [tape.tools :as tools]
+  (:require [tape.mvc.view :as v :include-macros true]
+            [tape.tools :as tools :include-macros true]
             [tape.tools.ui.form :as form]
             [tape.guis7.app.guis.flight-booker.controller :as flight-booker.c]
             [clojure.string :as string]))
@@ -14,14 +12,14 @@
 ;;; Views
 
 (defn ^::v/view index []
-  (let [lens   (tools/lens ::flight-booker.c/booking ::flight-booker.c/field)
+  (let [lens   (tools/lens flight-booker.c/booking flight-booker.c/field)
         kind   (lens [:kind])
         leave  (lens [:leave])
         return (lens [:return])
         errors (lens [:errors])
         valid  (lens [:valid])
         booked (lens [:booked])
-        book   #(when valid (rf/dispatch [::flight-booker.c/book]))]
+        book   #(when valid (v/dispatch [flight-booker.c/book]))]
     [:div.is-bound
      [:div.field
       [:div.control

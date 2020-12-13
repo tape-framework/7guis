@@ -15,11 +15,11 @@
         toggle  #(swap! focused not)]
     (fn [m]
       (let [{:keys [i j]} m
-            {:keys [value in-formula]} @(rf/subscribe [::cells.c/cell i j])
-            recompute #(rf/dispatch [::cells.c/recompute i j])
+            {:keys [value in-formula]} @(v/subscribe [cells.c/cell i j])
+            recompute #(v/dispatch [cells.c/recompute i j])
             set-cell (fn [event]
                        (let [in-formula (-> event .-target .-value)]
-                         (rf/dispatch [::cells.c/set-formula i j in-formula])))]
+                         (v/dispatch [cells.c/set-formula i j in-formula])))]
         [:input.input {:value     (if @focused in-formula value)
                        :on-focus  toggle
                        :on-blur   #(do (toggle) (recompute))

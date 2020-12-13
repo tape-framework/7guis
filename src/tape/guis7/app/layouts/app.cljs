@@ -13,10 +13,10 @@
             [tape.guis7.app.guis.circle-drawer.controller :as circle-drawer.c]
             [tape.guis7.app.guis.cells.controller :as cells.c]))
 
-(defn- navbar-item [current-view route name]
+(defn- navbar-item* [current-view route name]
   (let [maybe-active (when (= current-view route) "is-active")]
     [:a.navbar-item.is-tab
-     {:href (router/href [route]) :class maybe-active}
+     {:href (router/href* [route]) :class maybe-active}
      name]))
 
 (defn- navbar []
@@ -25,7 +25,7 @@
       (let [burger-class  (when @burger-active "is-active")
             burger-toggle #(swap! burger-active not)
             current-view  @(rf/subscribe [::v/current])
-            navbar-item   (partial navbar-item current-view)]
+            navbar-item   (partial navbar-item* current-view)]
         [:nav.navbar
          [:div.container
           [:div.navbar-brand
