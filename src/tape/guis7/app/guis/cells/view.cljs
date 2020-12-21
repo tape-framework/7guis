@@ -10,7 +10,7 @@
 
 ;;; Partials
 
-(defn cell [m]
+(defn- cell [m]
   (let [focused (r/atom false)
         toggle  #(swap! focused not)]
     (fn [m]
