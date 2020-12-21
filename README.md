@@ -15,7 +15,7 @@ CLJ_CONFIG=../versions/ clj -A:versions:test
 ```
 
 ```clojure
-(fig/dev)
+(build/big) ;; figwheel with piggieback
 ;; Opens http://localhost:9500/
 ```
 
