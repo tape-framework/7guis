@@ -9,8 +9,7 @@
    [tape.router :as router]
    [tape.tools.timeouts.controller]
    [tape.toasts.controller]
-   [tape.guis7.app.layouts.app :as app]
-   [tape.guis7.app.home.controller :as home.c]))
+   [tape.guis7.app.layouts.app :as app]))
 
 (mvc/require-modules "src/tape/guis7/app")
 
