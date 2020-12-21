@@ -8,19 +8,6 @@
 
 ;;; Partials
 
-(defn- delete [{:keys [on-confirm]} name]
-  (let [active? (r/atom false)
-        toggle  #(swap! active? not)
-        confirm #(do (toggle) (on-confirm))]
-    (fn []
-      [:div.dropdown {:class (when @active? "is-active")}
-       [:a.button.is-danger.dropdown-trigger {:on-click toggle} name]
-       [:div.dropdown-menu
-        [:div.dropdown-content
-         [:a.dropdown-item {:on-click confirm :class "has-text-danger"}
-          "Confirm"]
-         [:a.dropdown-item {:on-click toggle} "Cancel"]]]])))
-
 (defn- header [title & buttons]
   [:h2.subtitle title
    (into [:span.buttons.is-pulled-right] buttons)])
@@ -59,14 +46,17 @@
             [:div.control
              [:a.button {:href (router/href [crud.c/edit {:id id}])} "Edit"]]
             [:div.control
-             [delete {:on-confirm #(v/dispatch [crud.c/delete {:id id}])} "Delete"]]]]])]]]))
+             [:button.button.is-danger
+              {:on-click #(v/dispatch [crud.c/delete {:id id}])}
+              "Delete"]]]]])]]]))
 
 (defn ^::v/view show []
   (let [{:keys [id first-name last-name]} @(v/subscribe [crud.c/person])]
     [:article.article.is-bound
      [header "Show person"
       [:a.button.is-primary {:href (router/href [crud.c/edit {:id id}])} "Edit"]
-      [delete {:on-confirm #(v/dispatch [crud.c/delete])} "Delete"]]
+      [:button.button.is-danger
+       {:on-click #(v/dispatch [crud.c/delete])} "Delete"]]
      [:p first-name last-name]]))
 
 (defn ^::v/view new []
@@ -81,7 +71,8 @@
     [:form.is-bound
      [header "Edit person"
       [:button.button.is-primary
-       {:on-click (form/when-valid #(v/dispatch [crud.c/update {:path {:id id}}]))} "Update"]]
+       {:on-click (form/when-valid
+                   #(v/dispatch [crud.c/update {:path {:id id}}]))} "Update"]]
      [form-fields]]))
 
 ;;; Module
