@@ -4,8 +4,8 @@
 
 `tape.tape.guis7`
 
-7GUIs implementation to showcase Tape Framework.
-See https://eugenkiss.github.io/7guis/
+Sample app (7GUIs implementation) to showcase Tape Framework.  
+See [https://eugenkiss.github.io/7guis/](https://eugenkiss.github.io/7guis/).
 
 #### Usage
 
