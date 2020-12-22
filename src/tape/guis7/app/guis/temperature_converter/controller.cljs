@@ -5,7 +5,7 @@
 
 ;;; Routes
 
-(def routes
+(def ^::c/routes routes
   ["/temperature-converter" {:coercion rcs/coercion}
    ["" ::index]])
 

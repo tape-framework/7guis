@@ -9,7 +9,7 @@
 
 ;;; Routes
 
-(def routes
+(def ^::c/routes routes
   ["/crud" {:coercion rcs/coercion}
    ["" ::index]
    ["/new" {:name ::new :conflicting true}]

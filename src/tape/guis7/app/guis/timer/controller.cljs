@@ -7,7 +7,7 @@
 
 ;;; Routes
 
-(def routes
+(def ^::c/routes routes
   ["/timer" {:coercion rcs/coercion}
    ["" ::index]
    ["/reset" ::reset]])

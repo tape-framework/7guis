@@ -5,7 +5,7 @@
 
 ;;; Routes
 
-(def routes
+(def ^::c/routes routes
   ["/circle-drawer" {:coercion rcs/coercion}
    ["" ::index]])
 

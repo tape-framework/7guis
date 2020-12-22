@@ -3,4 +3,8 @@
  :tape.mvc/module nil
  :tape.router/module nil
  :tape.tools.timeouts.controller/module nil
- :tape.toasts.controller/module nil}
+ :tape.toasts.controller/module nil
+ :tape.profile/base
+ {:tape.guis7.core/main
+  {:mvc    #ig/ref :tape.mvc/main
+   :router #ig/ref :tape/router}}}

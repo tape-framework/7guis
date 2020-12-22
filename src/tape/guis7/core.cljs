@@ -20,13 +20,6 @@
 
 ;;; System
 
-(def ^:private modules-discovery (mvc/modules-discovery "src/tape/guis7/app"))
-
 (def config
   (merge (module/read-config "tape/guis7/config.edn")
-         (:modules modules-discovery)
-         {:tape.profile/base {::router/routes (into [""] (:routes modules-discovery))
-                              :tape/router    {:routes  (ig/ref ::router/routes)
-                                               :options {:conflicts nil}}
-                              ::mvc/main {:router (ig/ref :tape/router)}
-                              ::main (ig/ref ::mvc/main)}}))
+         (mvc/modules-map "src/tape/guis7/app")))
