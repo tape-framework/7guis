@@ -48,4 +48,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.flight-booker.controller)
+(v/defmodule)

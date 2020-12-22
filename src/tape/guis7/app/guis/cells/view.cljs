@@ -42,4 +42,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.cells.controller)
+(v/defmodule)

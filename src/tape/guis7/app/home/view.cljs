@@ -12,4 +12,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.home.controller)
+(v/defmodule)

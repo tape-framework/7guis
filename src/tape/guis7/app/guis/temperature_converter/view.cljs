@@ -20,4 +20,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.temperature-converter.controller)
+(v/defmodule)

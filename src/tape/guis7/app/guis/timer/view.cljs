@@ -33,4 +33,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.timer.controller)
+(v/defmodule)

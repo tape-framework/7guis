@@ -77,4 +77,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.crud.controller)
+(v/defmodule)

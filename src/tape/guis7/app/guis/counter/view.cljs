@@ -15,4 +15,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.counter.controller)
+(v/defmodule)

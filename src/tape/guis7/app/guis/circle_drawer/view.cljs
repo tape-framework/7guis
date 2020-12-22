@@ -63,4 +63,4 @@
 
 ;;; Module
 
-(v/defmodule tape.guis7.app.guis.circle-drawer.controller)
+(v/defmodule)
