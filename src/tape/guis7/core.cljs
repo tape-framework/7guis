@@ -21,5 +21,5 @@
 ;;; System
 
 (def config
-  (merge (module/read-config "tape/guis7/config.edn")
-         (mvc/modules-map "src/tape/guis7/app")))
+  (merge (mvc/modules-map "src/tape/guis7/app")
+         (module/read-config "tape/guis7/config.edn")))
