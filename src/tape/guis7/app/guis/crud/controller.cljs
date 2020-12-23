@@ -20,7 +20,7 @@
 
 (defn ^::c/event-db index [db _]
   (if (nil? (::people db))
-    {::people crud.m/seed}
+    (assoc db ::people crud.m/seed)
     (select-keys db [::people])))
 
 (defn ^::c/event-db new [db _]
