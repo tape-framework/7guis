@@ -19,9 +19,8 @@
 ;;; Handlers
 
 (defn ^::c/event-db index [db _]
-  (if (nil? (::people db))
-    (assoc db ::people crud.m/seed)
-    (select-keys db [::people])))
+  (cond-> (dissoc db ::v/current)
+          (nil? (::people db)) (assoc ::people crud.m/seed)))
 
 (defn ^::c/event-db new [db _]
   (-> db
