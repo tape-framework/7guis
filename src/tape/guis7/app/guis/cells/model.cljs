@@ -1,13 +1,14 @@
 ;; From https://github.com/eugenkiss/7guis-Clojure-Seesaw/blob/master/src/sevenguis/cells.clj
 (ns tape.guis7.app.guis.cells.model
-  (:refer-clojure :rename {eval clojure-eval})
+  (:refer-clojure :rename {eval eval-})
   (:require [cljs.reader :as reader]
+            [clojure.string :as string]
             [instaparse.core :as instaparse]))
 
 ;;; Domain
 
 (defn type-str [t]
-  (last (clojure.string/split (str (type t)) #"\.")))
+  (last (string/split (str (type t)) #"\.")))
 
 (defprotocol Formula
   (eval [this data])
@@ -62,7 +63,7 @@
         (apply (get op-table function) argvals)
         (catch js/Error e js/NaN))))
   (refs [this data] (mapcat #(refs % data) arguments))
-  (to-str [this] (str function "(" (clojure.string/join ", " (map to-str arguments)) ")")))
+  (to-str [this] (str function "(" (string/join ", " (map to-str arguments)) ")")))
 
 (def Emptyf (Textual. ""))
 

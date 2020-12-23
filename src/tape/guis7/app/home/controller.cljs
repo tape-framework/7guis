@@ -1,5 +1,5 @@
 (ns tape.guis7.app.home.controller
-  (:refer-clojure :rename {update clojure-update})
+  (:refer-clojure :rename {update update-})
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]))
 

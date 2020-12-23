@@ -1,5 +1,5 @@
 (ns tape.guis7.app.guis.counter.controller
-  (:refer-clojure :rename {count clojure-count  })
+  (:refer-clojure :rename {count count-})
   (:require [reitit.coercion.spec :as rcs]
             [tape.router :as router]
             [tape.mvc.controller :as c :include-macros true]))

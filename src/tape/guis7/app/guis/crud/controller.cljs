@@ -1,5 +1,5 @@
 (ns tape.guis7.app.guis.crud.controller
-  (:refer-clojure :rename {update clojure-update})
+  (:refer-clojure :rename {update update-})
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
             [tape.mvc.view :as v :include-macros true]
@@ -34,17 +34,17 @@
       (dissoc ::v/current)))
 
 (defn ^::c/event-fx create [{:keys [db]} _]
-  {:db         (clojure-update db ::people crud.m/insert (::person db))
+  {:db         (update- db ::people crud.m/insert (::person db))
    :dispatch-n [[::router/navigate [::index]]
                 [::toasts.c/create :success "Person created"]]})
 
 (defn ^::c/event-fx update [{:keys [db]} [_ params]]
-  {:db         (clojure-update db ::people assoc (-> params :path :id) (::person db))
+  {:db         (update- db ::people assoc (-> params :path :id) (::person db))
    :dispatch-n [[::router/navigate [::index]]
                 [::toasts.c/create :success "Person updated"]]})
 
 (defn ^::c/event-fx delete [{:keys [db]} [_ args]]
-  {:db       (clojure-update db ::people dissoc (-> args :id))
+  {:db       (update- db ::people dissoc (-> args :id))
    :dispatch [::toasts.c/create :success "Person deleted"]})
 
 (defn ^::c/event-db field [db [_ k v]] (assoc-in db [::person k] v))
