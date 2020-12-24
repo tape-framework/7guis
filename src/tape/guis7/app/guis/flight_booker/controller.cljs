@@ -5,7 +5,7 @@
 
 ;;; Routes
 
-(def ^::c/routes routes
+(def ^{::c/reg ::c/routes} routes
   ["/flight-booker" {:coercion rcs/coercion}
    ["" ::index]
    ["/book" ::book]])
@@ -31,20 +31,27 @@
 
 ;;; Handlers
 
-(defn ^::c/event-db index [_ _]
+(defn index
+  {::c/reg ::c/event-db}
+  [_ _]
   {::booking {:kind "one"}})
 
-(defn ^::c/event-db book [db _]
+(defn book
+  {::c/reg ::c/event-db}
+  [db _]
   (assoc-in db [::booking :booked] true))
 
-(defn ^::c/event-db field
+(defn field
   "Set a field and recompute it's validation errors."
+  {::c/reg ::c/event-db}
   [db [_ k v]]
   (assoc db ::booking (add-field (::booking db) k v)))
 
 ;;; Sub
 
-(defn ^::c/sub booking [db _] (::booking db))
+(defn booking
+  {::c/reg ::c/sub}
+  [db _] (::booking db))
 
 ;;; Module
 

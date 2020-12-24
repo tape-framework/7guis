@@ -12,7 +12,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [lens     (tools/lens timer.c/timer timer.c/field)
         progress (lens [:progress])
         duration (r/cursor lens [:duration])]

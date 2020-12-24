@@ -4,7 +4,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [celsius         @(v/subscribe [temperature-converter.c/celsius])
         fahrenheit      @(v/subscribe [temperature-converter.c/fahrenheit])
         from-celsius    #(v/dispatch [temperature-converter.c/from-celsius (-> % .-target .-value)])

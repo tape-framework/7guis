@@ -11,7 +11,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [lens   (tools/lens flight-booker.c/booking flight-booker.c/field)
         kind   (lens [:kind])
         leave  (lens [:leave])

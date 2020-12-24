@@ -27,7 +27,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   [:table.table
    [:tbody
     [:tr

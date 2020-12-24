@@ -5,13 +5,15 @@
 
 ;;; Routes
 
-(def ^::c/routes routes
+(def ^{::c/reg ::c/routes} routes
   ["" {:coercion rcs/coercion}
    ["/" ::index]])
 
 ;;; Index
 
-(defn ^::c/event-db index [_ _] {})
+(defn index
+  {::c/reg ::c/event-db}
+  [_ _] {})
 
 ;;; Module
 

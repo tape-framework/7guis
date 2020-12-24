@@ -29,7 +29,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [people @(v/subscribe [crud.c/people])]
     [:div.is-bound
      [header "List people"
@@ -50,7 +52,9 @@
               {:on-click #(v/dispatch [crud.c/delete {:id id}])}
               "Delete"]]]]])]]]))
 
-(defn ^::v/view show []
+(defn show
+  {::v/reg ::v/view}
+  []
   (let [{:keys [id first-name last-name]} @(v/subscribe [crud.c/person])]
     [:article.article.is-bound
      [header "Show person"
@@ -59,14 +63,18 @@
        {:on-click #(v/dispatch [crud.c/delete])} "Delete"]]
      [:p first-name last-name]]))
 
-(defn ^::v/view new []
+(defn new
+  {::v/reg ::v/view}
+  []
   [:form.is-bound
    [header "New person"
     [:button.button.is-primary
      {:on-click (form/when-valid #(v/dispatch [crud.c/create]))} "Create"]]
    [form-fields]])
 
-(defn ^::v/view edit []
+(defn edit
+  {::v/reg ::v/view}
+  []
   (let [{:keys [id]} @(v/subscribe [crud.c/person])]
     [:form.is-bound
      [header "Edit person"

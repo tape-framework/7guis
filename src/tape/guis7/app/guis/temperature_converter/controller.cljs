@@ -5,28 +5,39 @@
 
 ;;; Routes
 
-(def ^::c/routes routes
+(def ^{::c/reg ::c/routes} routes
   ["/temperature-converter" {:coercion rcs/coercion}
    ["" ::index]])
 
 ;;; Handlers
 
-(defn ^::c/event-db index [_ _] {})
+(defn index
+  {::c/reg ::c/event-db}
+  [_ _] {})
 
-(defn ^::c/event-db from-celsius [db [_ celsius]]
+(defn from-celsius
+  {::c/reg ::c/event-db}
+  [db [_ celsius]]
   (assoc db
     ::celsius celsius
     ::fahrenheit (temperature-converter.m/->fahrenheit celsius)))
 
-(defn ^::c/event-db from-fahrenheit [db [_ fahrenheit]]
+(defn from-fahrenheit
+  {::c/reg ::c/event-db}
+  [db [_ fahrenheit]]
   (assoc db
     ::fahrenheit fahrenheit
     ::celsius (temperature-converter.m/->celsius fahrenheit)))
 
 ;;; Sub
 
-(defn ^::c/sub celsius [db _] (::celsius db))
-(defn ^::c/sub fahrenheit [db _] (::fahrenheit db))
+(defn celsius
+  {::c/reg ::c/sub}
+  [db _] (::celsius db))
+
+(defn fahrenheit
+  {::c/reg ::c/sub}
+  [db _] (::fahrenheit db))
 
 ;;; Module
 

@@ -5,54 +5,91 @@
 
 ;;; Routes
 
-(def ^::c/routes routes
+(def ^{::c/reg ::c/routes} routes
   ["/circle-drawer" {:coercion rcs/coercion}
    ["" ::index]])
 
 ;;; Handlers
 
-(defn ^::c/event-db index [_ _] circle-drawer.m/init)
+(defn index
+  {::c/reg ::c/event-db}
+  [_ _] circle-drawer.m/init)
 
-(defn ^::c/event-fx create [{:keys [db]} [_ x y]]
+(defn create
+  {::c/reg ::c/event-fx}
+  [{:keys [db]} [_ x y]]
   {:db (circle-drawer.m/snapshot (update db ::circles circle-drawer.m/insert [x y 30]))
    :dispatch [::select x y]})
 
-(defn ^::c/event-db select [db [_ x y]]
+(defn select
+  {::c/reg ::c/event-db}
+  [db [_ x y]]
   (assoc db ::selected (circle-drawer.m/select (::circles db) x y)))
 
-(defn ^::c/event-db activate [db _]
+(defn activate
+  {::c/reg ::c/event-db}
+  [db _]
   (assoc db ::activated? true))
 
-(defn ^::c/event-db deactivate [db _]
+(defn deactivate
+  {::c/reg ::c/event-db}
+  [db _]
   (assoc db ::activated? false))
 
-(defn ^::c/event-db edit [db _]
+(defn edit
+  {::c/reg ::c/event-db}
+  [db _]
   (assoc db ::activated? false
             ::editing? true))
 
-(defn ^::c/event-db stop-edit [db _]
+(defn stop-edit
+  {::c/reg ::c/event-db}
+  [db _]
   (let [{::keys [set-radius?]} db]
     (cond-> (assoc db ::editing? false)
             set-radius? (-> (assoc ::set-radius? false)
                             circle-drawer.m/snapshot))))
 
-(defn ^::c/event-db set-radius [db [_ r]]
+(defn set-radius
+  {::c/reg ::c/event-db}
+  [db [_ r]]
   (-> db
       (assoc ::set-radius? true)
       (assoc-in [::circles (::selected db) 2] r)))
 
-(defn ^::c/event-db undo [db _] (circle-drawer.m/undo db))
+(defn undo
+  {::c/reg ::c/event-db}
+  [db _] (circle-drawer.m/undo db))
 
-(defn ^::c/event-db redo [db _] (circle-drawer.m/redo db))
+(defn redo
+  {::c/reg ::c/event-db}
+  [db _] (circle-drawer.m/redo db))
 
 ;;; Sub
 
-(defn ^::c/sub circles [db _] (::circles db))
-(defn ^::c/sub selected [db _] (::selected db))
-(defn ^::c/sub activated? [db _] (::activated? db))
-(defn ^::c/sub editing? [db _] (::editing? db))
-(defn ^::c/sub undo? [db _] (::undo? db))
-(defn ^::c/sub redo? [db _] (::redo? db))
+(defn circles
+  {::c/reg ::c/sub}
+  [db _] (::circles db))
+
+(defn selected
+  {::c/reg ::c/sub}
+  [db _] (::selected db))
+
+(defn activated?
+  {::c/reg ::c/sub}
+  [db _] (::activated? db))
+
+(defn editing?
+  {::c/reg ::c/sub}
+  [db _] (::editing? db))
+
+(defn undo?
+  {::c/reg ::c/sub}
+  [db _] (::undo? db))
+
+(defn redo?
+  {::c/reg ::c/sub}
+  [db _] (::redo? db))
 
 ;;; Module
 

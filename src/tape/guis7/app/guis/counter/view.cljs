@@ -5,7 +5,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [cnt @(v/subscribe [counter.c/count])]
     [:div.field.has-addons.is-bound
      [:div.control

@@ -19,7 +19,9 @@
 
 ;;; Views
 
-(defn ^::v/view index []
+(defn index
+  {::v/reg ::v/view}
+  []
   (let [circles    @(v/subscribe [circle-drawer.c/circles])
         selected   @(v/subscribe [circle-drawer.c/selected])
         activated? @(v/subscribe [circle-drawer.c/activated?])

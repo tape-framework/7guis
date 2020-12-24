@@ -6,7 +6,7 @@
 
 ;;; Routes
 
-(def ^::c/routes routes
+(def ^{::c/reg ::c/routes} routes
   ["/counter" {:coercion rcs/coercion}
    ["" ::index]
    ["/show" ::show]
@@ -14,25 +14,30 @@
 
 ;;; Handlers
 
-(defn ^::c/event-fx index
+(defn index
   "Initialize counter."
+  {::c/reg ::c/event-fx}
   [_ _]
   {:db {::count 0}
    :dispatch [::router/navigate [::show]]})
 
-(defn ^::c/event-db show
+(defn show
   "Show counter."
+  {::c/reg ::c/event-db}
   [db _] db)
 
-(defn ^::c/event-fx increment
+(defn increment
   "Increment count."
+  {::c/reg ::c/event-fx}
   [{:keys [db]} _]
   {:db (update db ::count inc)
    :dispatch [::router/navigate [::show]]})
 
 ;;; Sub
 
-(defn ^::c/sub count [db _] (::count db))
+(defn count
+  {::c/reg ::c/sub}
+  [db _] (::count db))
 
 ;;; Module
 
