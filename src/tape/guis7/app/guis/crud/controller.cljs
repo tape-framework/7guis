@@ -1,17 +1,21 @@
 (ns tape.guis7.app.guis.crud.controller
-  (:refer-clojure :rename {update update-})
+  "People CRUD persisted to localstorage via datascript."
+  {:tape.mvc.controller/interceptors [datascript.c/inject]}
+  (:refer-clojure :rename {list list-})
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
             [tape.mvc.view :as v :include-macros true]
             [tape.router :as router]
             [tape.toasts.controller :as toasts.c]
-            [tape.guis7.app.guis.crud.model :as crud.m]))
+            [tape.datascript.controller :as datascript.c]
+            [tape.guis7.app.guis.crud.model :as model.m]))
 
 ;;; Routes
 
 (def ^{::c/reg ::c/routes} routes
   ["/crud" {:coercion rcs/coercion}
    ["" ::index]
+   ["/list" ::list]
    ["/new" {:name ::new :conflicting true}]
    ["/:id" {:conflicting true, :parameters {:path {:id int?}}}
     ["/edit" ::edit]]])
@@ -19,48 +23,54 @@
 ;;; Handlers
 
 (defn index
-  {::c/reg ::c/event-db}
-  [db _]
-  (cond-> (dissoc db ::v/current)
-          (nil? (::people db)) (assoc ::people crud.m/seed)))
+  "Seed and redirect to list."
+  {::c/reg ::c/event-fx}
+  [{::datascript.c/keys [ds]} _]
+  {:fx [[::datascript.c/ds (model.m/maybe-seed ds)]
+        [:dispatch [::router/navigate [::list]]]]})
+
+(defn list
+  {::c/reg ::c/event-fx}
+  [{::datascript.c/keys [ds] :keys [db]} _]
+  {:db (-> db
+           (assoc ::v/current ::index)
+           (assoc ::people (model.m/all ds)))
+   ::datascript.c/dump true})
 
 (defn new
   {::c/reg ::c/event-db}
   [db _]
   (-> db
-      (assoc ::person {})
-      (dissoc ::v/current)))
+      (dissoc ::v/current)
+      (assoc ::person {})))
 
 (defn edit
-  {::c/reg ::c/event-db}
-  [db [_ params]]
-  (-> db
-      (assoc ::person (get-in db [::people (-> params :path :id)]))
-      (dissoc ::v/current)))
-
-(defn create
   {::c/reg ::c/event-fx}
-  [{:keys [db]} _]
-  {:db         (update- db ::people crud.m/insert (::person db))
-   :dispatch-n [[::router/navigate [::index]]
-                [::toasts.c/create :success "Person created"]]})
+  [{::datascript.c/keys [ds] :keys [db]} [_ params]]
+  (let [id (-> params :path :id)]
+    {:db (-> db
+             (dissoc ::v/current)
+             (assoc ::person (model.m/one ds id)))}))
 
-(defn update
+(defn save
   {::c/reg ::c/event-fx}
-  [{:keys [db]} [_ params]]
-  {:db         (update- db ::people assoc (-> params :path :id) (::person db))
-   :dispatch-n [[::router/navigate [::index]]
-                [::toasts.c/create :success "Person updated"]]})
+  [{::datascript.c/keys [ds] :keys [db]} _]
+  {::datascript.c/ds (model.m/save ds (::person db))
+   :dispatch-n [[::router/navigate [::list]]
+                [::toasts.c/create :success "Person saved"]]})
 
 (defn delete
   {::c/reg ::c/event-fx}
-  [{:keys [db]} [_ args]]
-  {:db       (update- db ::people dissoc (-> args :id))
-   :dispatch [::toasts.c/create :success "Person deleted"]})
+  [{::datascript.c/keys [ds]} [_ args]]
+  (let [id (:id args)]
+    {::datascript.c/ds (model.m/delete ds id)
+     :dispatch-n [[::router/navigate [::list]]
+                  [::toasts.c/create :success "Person deleted"]]}))
 
 (defn field
   {::c/reg ::c/event-db}
-  [db [_ k v]] (assoc-in db [::person k] v))
+  [db [_ k v]]
+  (assoc-in db [::person k] v))
 
 ;;; Sub
 

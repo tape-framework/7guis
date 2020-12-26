@@ -21,11 +21,11 @@
      [:div.field
       [:label.label "First name"]
       [:div.control
-       [field :first-name]]]
+       [field :person/first-name]]]
      [:div.field
       [:label.label "Last name"]
       [:div.control
-       [field :last-name]]]]))
+       [field :person/last-name]]]]))
 
 ;;; Views
 
@@ -38,8 +38,8 @@
       [:a.button.is-primary {:href (router/href [crud.c/new])} "New"]]
      [:table.table
       [:tbody
-       (for [[_ person] people
-             :let [{:keys [id first-name last-name]} person]]
+       (for [person people
+             :let [{:db/keys [id] :person/keys [first-name last-name]} person]]
          [:tr {:key id}
           [:td first-name]
           [:td last-name]
@@ -52,36 +52,23 @@
               {:on-click #(v/dispatch [crud.c/delete {:id id}])}
               "Delete"]]]]])]]]))
 
-(defn show
-  {::v/reg ::v/view}
-  []
-  (let [{:keys [id first-name last-name]} @(v/subscribe [crud.c/person])]
-    [:article.article.is-bound
-     [header "Show person"
-      [:a.button.is-primary {:href (router/href [crud.c/edit {:id id}])} "Edit"]
-      [:button.button.is-danger
-       {:on-click #(v/dispatch [crud.c/delete])} "Delete"]]
-     [:p first-name last-name]]))
-
 (defn new
   {::v/reg ::v/view}
   []
   [:form.is-bound
    [header "New person"
     [:button.button.is-primary
-     {:on-click (form/when-valid #(v/dispatch [crud.c/create]))} "Create"]]
+     {:on-click (form/when-valid #(v/dispatch [crud.c/save]))} "Create"]]
    [form-fields]])
 
 (defn edit
   {::v/reg ::v/view}
   []
-  (let [{:keys [id]} @(v/subscribe [crud.c/person])]
-    [:form.is-bound
-     [header "Edit person"
-      [:button.button.is-primary
-       {:on-click (form/when-valid
-                   #(v/dispatch [crud.c/update {:path {:id id}}]))} "Update"]]
-     [form-fields]]))
+  [:form.is-bound
+   [header "Edit person"
+    [:button.button.is-primary
+     {:on-click (form/when-valid #(v/dispatch [crud.c/save]))} "Update"]]
+   [form-fields]])
 
 ;;; Module
 
