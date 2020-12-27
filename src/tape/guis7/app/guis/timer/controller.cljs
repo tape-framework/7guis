@@ -2,7 +2,7 @@
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
             [tape.mvc.view :as v :include-macros true]
-            [tape.router :as router]
+            [tape.current :as current]
             [tape.tools.timeouts.controller :as timeouts.c]))
 
 ;;; Routes
@@ -15,7 +15,7 @@
 ;;; Helpers
 
 (def ^:private init {::timer {:progress 0, :duration 50}})
-(def ^:private timeout {:ms 100, :set [::timeout-set] :timeout [::tick]})
+(def ^:private timeout {:ms 100, :set [::timeout-set], :timeout [::tick]})
 
 ;;; Handlers
 
@@ -23,9 +23,10 @@
   {::c/reg ::c/event-fx}
   [{:keys [db]} _]
   (let [timeout-id (-> db ::timer :timeout-id)
-        events     (cond-> [[::timeouts.c/set timeout]]
-                           (some? timeout-id) (conj [::timeouts.c/clear timeout-id]))]
-    {:db         init
+        events (cond-> [[::timeouts.c/set timeout]]
+                       (some? timeout-id) (conj [::timeouts.c/clear
+                                                 timeout-id]))]
+    {:db init
      :dispatch-n events}))
 
 (defn timeout-set
@@ -37,8 +38,8 @@
   {::c/reg ::c/event-fx}
   [{:keys [db]} _]
   (let [{:keys [progress duration]} (::timer db)
-        {::v/keys [current]} db
-        more? (and (= current ::index)
+        {::current/keys [view]} db
+        more? (and (= view ::index)
                    (< progress duration))]
     (cond-> {:db db}
             more? (-> (update-in [:db ::timer :progress] + 0.1)

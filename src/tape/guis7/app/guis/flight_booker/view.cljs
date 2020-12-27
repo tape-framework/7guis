@@ -21,7 +21,7 @@
         errors (lens [:errors])
         valid  (lens [:valid])
         booked (lens [:booked])
-        book   #(when valid (v/dispatch [flight-booker.c/book]))]
+        book   #(when valid (tools/dispatch [flight-booker.c/book]))]
     [:div.is-bound
      [:div.field
       [:div.control

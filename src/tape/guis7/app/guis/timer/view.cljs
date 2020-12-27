@@ -15,21 +15,23 @@
 (defn index
   {::v/reg ::v/view}
   []
-  (let [lens     (tools/lens timer.c/timer timer.c/field)
+  (let [lens (tools/lens timer.c/timer timer.c/field)
         progress (lens [:progress])
         duration (r/cursor lens [:duration])]
     [:div.is-bound
      [:div.field
       [:div.label "Elapsed time:"]
       [:div.control
-       [:progress.progress.is-primary {:value (progress-percent @duration progress) :max 100}]
+       [:progress.progress.is-primary
+        {:value (progress-percent @duration progress) :max 100}]
        [:p progress]]]
      [:div.field
       [:div.label "Duration"]
       [:div.control
-       [:input.is-fullwidth {:type      "range" :step 0.1 :min 0 :max 100
-                             :value     @duration
-                             :on-change #(reset! duration (-> % .-target .-value js/parseFloat))}]]]
+       [:input.is-fullwidth
+        {:type "range" :step 0.1 :min 0 :max 100
+         :value @duration
+         :on-change #(reset! duration (-> % .-target .-value js/parseFloat))}]]]
      [:div.control
       [:a.button.is-info {:href (router/href [timer.c/index])} "Reset"]]]))
 

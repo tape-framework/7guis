@@ -1,6 +1,5 @@
 (ns tape.guis7.app.guis.crud.view
-  (:require [reagent.core :as r]
-            [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc.view :as v :include-macros true]
             [tape.router :as router :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.tools.ui.form :as form]
@@ -32,7 +31,7 @@
 (defn index
   {::v/reg ::v/view}
   []
-  (let [people @(v/subscribe [crud.c/people])]
+  (let [people @(tools/subscribe [crud.c/people])]
     [:div.is-bound
      [header "List people"
       [:a.button.is-primary {:href (router/href [crud.c/new])} "New"]]
@@ -49,7 +48,7 @@
              [:a.button {:href (router/href [crud.c/edit {:id id}])} "Edit"]]
             [:div.control
              [:button.button.is-danger
-              {:on-click #(v/dispatch [crud.c/delete {:id id}])}
+              {:on-click #(tools/dispatch [crud.c/delete {:id id}])}
               "Delete"]]]]])]]]))
 
 (defn new
@@ -58,7 +57,7 @@
   [:form.is-bound
    [header "New person"
     [:button.button.is-primary
-     {:on-click (form/when-valid #(v/dispatch [crud.c/save]))} "Create"]]
+     {:on-click (form/when-valid #(tools/dispatch [crud.c/save]))} "Create"]]
    [form-fields]])
 
 (defn edit
@@ -67,7 +66,7 @@
   [:form.is-bound
    [header "Edit person"
     [:button.button.is-primary
-     {:on-click (form/when-valid #(v/dispatch [crud.c/save]))} "Update"]]
+     {:on-click (form/when-valid #(tools/dispatch [crud.c/save]))} "Update"]]
    [form-fields]])
 
 ;;; Module
