@@ -1,8 +1,7 @@
 (ns tape.guis7.app.guis.timer.controller
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
-            [tape.mvc.view :as v :include-macros true]
-            [tape.current :as current]
+            [tape.tools.current.controller :as current.c]
             [tape.tools.timeouts.controller :as timeouts.c]))
 
 ;;; Routes
@@ -38,7 +37,7 @@
   {::c/reg ::c/event-fx}
   [{:keys [db]} _]
   (let [{:keys [progress duration]} (::timer db)
-        {::current/keys [view]} db
+        {::current.c/keys [view]} db
         more? (and (= view ::index)
                    (< progress duration))]
     (cond-> {:db db}

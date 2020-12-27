@@ -5,7 +5,6 @@
         instaparse/instaparse {}
         tape/mvc {:local/root "../mvc"}
         tape/router {:local/root "../router"}
-        tape/current {:local/root "../current"}
         tape/tools {:local/root "../tools"}
         tape/toasts {:local/root "../toasts"}
         tape/datascript {:local/root "../datascript"}}
