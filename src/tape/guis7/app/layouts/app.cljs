@@ -2,6 +2,7 @@
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [tape.mvc.view :as v]
+            [tape.current :as current]
             [tape.router :as router]
             [tape.toasts.view :as toasts.v]
             [tape.guis7.app.home.controller :as home.c]
@@ -24,7 +25,7 @@
     (fn []
       (let [burger-class  (when @burger-active "is-active")
             burger-toggle #(swap! burger-active not)
-            current-view  @(rf/subscribe [::v/current])
+            current-view  @(v/subscribe [current/view])
             navbar-item   (partial navbar-item* current-view)]
         [:nav.navbar
          [:div.container
@@ -43,7 +44,7 @@
             (navbar-item ::cells.c/index "Cells")]]]]))))
 
 (defn app []
-  (let [current-view-fn @(rf/subscribe [::v/current-fn])]
+  (let [current-view-fn @(rf/subscribe [::current/view-fn])]
     [:<>
      [navbar]
      [:section.section

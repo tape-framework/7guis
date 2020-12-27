@@ -5,6 +5,7 @@
   (:require [reitit.coercion.spec :as rcs]
             [tape.mvc.controller :as c :include-macros true]
             [tape.mvc.view :as v :include-macros true]
+            [tape.current :as current]
             [tape.router :as router]
             [tape.toasts.controller :as toasts.c]
             [tape.datascript.controller :as datascript.c]
@@ -33,7 +34,7 @@
   {::c/reg ::c/event-fx}
   [{::datascript.c/keys [ds] :keys [db]} _]
   {:db (-> db
-           (assoc ::v/current ::index)
+           (assoc ::current/view ::index)
            (assoc ::people (model.m/all ds)))
    ::datascript.c/dump true})
 
@@ -41,7 +42,7 @@
   {::c/reg ::c/event-db}
   [db _]
   (-> db
-      (dissoc ::v/current)
+      (dissoc ::current/view)
       (assoc ::person {})))
 
 (defn edit
@@ -49,7 +50,7 @@
   [{::datascript.c/keys [ds] :keys [db]} [_ params]]
   (let [id (-> params :path :id)]
     {:db (-> db
-             (dissoc ::v/current)
+             (dissoc ::current/view)
              (assoc ::person (model.m/one ds id)))}))
 
 (defn save
