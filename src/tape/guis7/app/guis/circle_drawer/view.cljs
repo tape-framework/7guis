@@ -1,5 +1,5 @@
 (ns tape.guis7.app.guis.circle-drawer.view
-  (:require [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc :as mvc :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.circle-drawer.controller :as circle-drawer.c]))
 
@@ -20,7 +20,7 @@
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   (let [circles @(tools/subscribe [circle-drawer.c/circles])
         selected @(tools/subscribe [circle-drawer.c/selected])
@@ -72,4 +72,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

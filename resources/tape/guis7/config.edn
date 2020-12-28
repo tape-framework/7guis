@@ -1,6 +1,4 @@
-{:tape.mvc.controller/module nil
- :tape.mvc.view/module nil
- :tape.mvc/module nil
+{:tape.mvc/module nil
  :tape.router/module nil
  :tape.tools.current.controller/module nil
  :tape.tools.timeouts.controller/module nil

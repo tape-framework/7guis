@@ -1,18 +1,18 @@
 (ns tape.guis7.app.guis.crud.controller
   "People CRUD persisted to localstorage via datascript."
-  {:tape.mvc.controller/interceptors [datascript.c/inject]}
+  {:tape.mvc/interceptors [datascript.c/inject]}
   (:refer-clojure :rename {list list-})
   (:require [reitit.coercion.spec :as rcs]
-            [tape.mvc.controller :as c :include-macros true]
-            [tape.tools.current.controller :as current.c]
+            [tape.mvc :as mvc :include-macros true]
             [tape.router :as router]
+            [tape.tools.current.controller :as current.c]
             [tape.toasts.controller :as toasts.c]
             [tape.datascript.controller :as datascript.c]
             [tape.guis7.app.guis.crud.model :as model.m]))
 
 ;;; Routes
 
-(def ^{::c/reg ::c/routes} routes
+(def ^{::mvc/reg ::mvc/routes} routes
   ["/crud" {:coercion rcs/coercion}
    ["" ::index]
    ["/list" ::list]
@@ -24,13 +24,13 @@
 
 (defn index
   "Seed and redirect to list."
-  {::c/reg ::c/event-fx}
+  {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds]} _]
   {:fx [[::datascript.c/ds (model.m/maybe-seed ds)]
         [:dispatch [::router/navigate [::list]]]]})
 
 (defn list
-  {::c/reg ::c/event-fx}
+  {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds] :keys [db]} _]
   {:db (-> db
            (assoc ::current.c/view ::index)
@@ -38,14 +38,14 @@
    ::datascript.c/dump true})
 
 (defn new
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [db _]
   (-> db
       (dissoc ::current.c/view)
       (assoc ::person {})))
 
 (defn edit
-  {::c/reg ::c/event-fx}
+  {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds] :keys [db]} [_ params]]
   (let [id (-> params :path :id)]
     {:db (-> db
@@ -53,14 +53,14 @@
              (assoc ::person (model.m/one ds id)))}))
 
 (defn save
-  {::c/reg ::c/event-fx}
+  {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds] :keys [db]} _]
   {::datascript.c/ds (model.m/save ds (::person db))
    :dispatch-n [[::router/navigate [::list]]
                 [::toasts.c/create :success "Person saved"]]})
 
 (defn delete
-  {::c/reg ::c/event-fx}
+  {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds]} [_ args]]
   (let [id (:id args)]
     {::datascript.c/ds (model.m/delete ds id)
@@ -68,20 +68,20 @@
                   [::toasts.c/create :success "Person deleted"]]}))
 
 (defn field
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [db [_ k v]]
   (assoc-in db [::person k] v))
 
 ;;; Sub
 
 (defn people
-  {::c/reg ::c/sub}
+  {::mvc/reg ::mvc/sub}
   [db _] (::people db))
 
 (defn person
-  {::c/reg ::c/sub}
+  {::mvc/reg ::mvc/sub}
   [db _] (::person db))
 
 ;;; Module
 
-(c/defmodule)
+(mvc/defm ::module)

@@ -1,6 +1,6 @@
 (ns tape.guis7.app.guis.cells.view
   (:require [reagent.core :as r]
-            [tape.mvc.view :as v :include-macros true]
+            [tape.mvc :as mvc :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.cells.controller :as cells.c]))
 
@@ -28,7 +28,7 @@
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   [:table.table
    [:tbody
@@ -44,4 +44,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

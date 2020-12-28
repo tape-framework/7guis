@@ -1,20 +1,20 @@
 (ns tape.guis7.app.home.controller
   (:refer-clojure :rename {update update-})
   (:require [reitit.coercion.spec :as rcs]
-            [tape.mvc.controller :as c :include-macros true]))
+            [tape.mvc :as mvc :include-macros true]))
 
 ;;; Routes
 
-(def ^{::c/reg ::c/routes} routes
+(def ^{::mvc/reg ::mvc/routes} routes
   ["" {:coercion rcs/coercion}
    ["/" ::index]])
 
 ;;; Index
 
 (defn index
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [_ _] {})
 
 ;;; Module
 
-(c/defmodule)
+(mvc/defm ::module)

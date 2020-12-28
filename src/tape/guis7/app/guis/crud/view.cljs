@@ -1,5 +1,5 @@
 (ns tape.guis7.app.guis.crud.view
-  (:require [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc :as mvc :include-macros true]
             [tape.router :as router :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.tools.ui.form :as form]
@@ -12,7 +12,7 @@
    (into [:span.buttons.is-pulled-right] buttons)])
 
 (defn- form-fields []
-  (let [lens  (tools/lens crud.c/person crud.c/field)
+  (let [lens (tools/lens crud.c/person crud.c/field)
         field (fn [field]
                 (form/field {:type :text, :class "input", :source lens,
                              :field field, :required true}))]
@@ -29,7 +29,7 @@
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   (let [people @(tools/subscribe [crud.c/people])]
     [:div.is-bound
@@ -52,7 +52,7 @@
               "Delete"]]]]])]]]))
 
 (defn new
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   [:form.is-bound
    [header "New person"
@@ -61,7 +61,7 @@
    [form-fields]])
 
 (defn edit
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   [:form.is-bound
    [header "Edit person"
@@ -71,4 +71,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

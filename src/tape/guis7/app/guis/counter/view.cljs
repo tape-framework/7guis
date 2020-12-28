@@ -1,5 +1,5 @@
 (ns tape.guis7.app.guis.counter.view
-  (:require [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc :as mvc :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.router :as router :include-macros true]
             [tape.guis7.app.guis.counter.controller :as counter.c]))
@@ -7,7 +7,7 @@
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   (let [cnt @(tools/subscribe [counter.c/count])]
     [:div.field.has-addons.is-bound
@@ -18,4 +18,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

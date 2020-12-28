@@ -1,11 +1,11 @@
 (ns tape.guis7.app.guis.flight-booker.controller
   (:require [reitit.coercion.spec :as rcs]
-            [tape.mvc.controller :as c :include-macros true]
+            [tape.mvc :as mvc :include-macros true]
             [tape.guis7.app.guis.flight-booker.model :as flight-booker.m]))
 
 ;;; Routes
 
-(def ^{::c/reg ::c/routes} routes
+(def ^{::mvc/reg ::mvc/routes} routes
   ["/flight-booker" {:coercion rcs/coercion}
    ["" ::index]
    ["/book" ::book]])
@@ -32,27 +32,27 @@
 ;;; Handlers
 
 (defn index
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [_ _]
   {::booking {:kind "one"}})
 
 (defn book
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [db _]
   (assoc-in db [::booking :booked] true))
 
 (defn field
   "Set a field and recompute it's validation errors."
-  {::c/reg ::c/event-db}
+  {::mvc/reg ::mvc/event-db}
   [db [_ k v]]
   (assoc db ::booking (add-field (::booking db) k v)))
 
 ;;; Sub
 
 (defn booking
-  {::c/reg ::c/sub}
+  {::mvc/reg ::mvc/sub}
   [db _] (::booking db))
 
 ;;; Module
 
-(c/defmodule)
+(mvc/defm ::module)

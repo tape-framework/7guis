@@ -3,10 +3,10 @@
    [goog.dom]
    [integrant.core :as ig]
    [reagent.dom :as dom]
-   [re-frame.core :as rf]
+   [re-frame.core]
    [tape.module :as module :include-macros true]
    [tape.mvc :as mvc :include-macros true]
-   [tape.router :as router]
+   [tape.router]
    [tape.tools.timeouts.controller]
    [tape.toasts.controller]
    [tape.guis7.app.layouts.app :as app]))

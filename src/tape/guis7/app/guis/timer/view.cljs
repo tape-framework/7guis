@@ -1,6 +1,6 @@
 (ns tape.guis7.app.guis.timer.view
   (:require [reagent.core :as r]
-            [tape.mvc.view :as v :include-macros true]
+            [tape.mvc :as mvc :include-macros true]
             [tape.router :as router :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.timer.controller :as timer.c]))
@@ -13,7 +13,7 @@
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   (let [lens (tools/lens timer.c/timer timer.c/field)
         progress (lens [:progress])
@@ -37,4 +37,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

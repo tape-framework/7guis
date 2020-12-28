@@ -1,12 +1,12 @@
 (ns tape.guis7.app.guis.temperature-converter.view
-  (:require [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc :as mvc :include-macros true]
             [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.temperature-converter.controller :as temperature-converter.c]))
 
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   (let [celsius @(tools/subscribe [temperature-converter.c/celsius])
         fahrenheit @(tools/subscribe [temperature-converter.c/fahrenheit])
@@ -28,4 +28,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)

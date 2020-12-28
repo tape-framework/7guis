@@ -1,11 +1,11 @@
 (ns tape.guis7.app.home.view
-  (:require [tape.mvc.view :as v :include-macros true]
+  (:require [tape.mvc :as mvc :include-macros true]
             [tape.guis7.app.home.controller]))
 
 ;;; Views
 
 (defn index
-  {::v/reg ::v/view}
+  {::mvc/reg ::mvc/view}
   []
   [:p
    "7GUIs based on "
@@ -14,4 +14,4 @@
 
 ;;; Module
 
-(v/defmodule)
+(mvc/defm ::module)
