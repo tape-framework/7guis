@@ -1,0 +1,33 @@
+== README
+
+`tape.tape.guis7`
+
+=== About
+
+Sample app (7GUIs implementation) to showcase Tape Framework.
+See https://eugenkiss.github.io/7guis[https://eugenkiss.github.io/7guis].
+
+=== Usage
+
+[source,bash]
+----
+cd 7guis
+CLJ_CONFIG=../versions/ clj -A:versions:test
+----
+
+[source,clojure]
+----
+(build/big) ;; figwheel with piggieback
+;; Opens http://localhost:9500/
+----
+
+[source,clojure]
+----
+(in-ns 'tape.guis7.dev)
+----
+
+=== License
+
+Copyright © 2020 clyfe
+
+Distributed under the MIT license.
