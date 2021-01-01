@@ -1,6 +1,5 @@
 (ns tape.guis7.app.guis.counter.view
   (:require [tape.mvc :as mvc :include-macros true]
-            [tape.tools :as tools :include-macros true]
             [tape.router :as router :include-macros true]
             [tape.guis7.app.guis.counter.controller :as counter.c]))
 
@@ -9,7 +8,7 @@
 (defn index
   {::mvc/reg ::mvc/view}
   []
-  (let [cnt @(tools/subscribe [counter.c/count])]
+  (let [cnt @(mvc/subscribe [counter.c/count])]
     [:div.field.has-addons.is-bound
      [:div.control
       [:input.input {:type "number" :value cnt :read-only true}]]

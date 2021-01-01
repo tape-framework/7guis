@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [tape.mvc :as mvc :include-macros true]
             [tape.router :as router :include-macros true]
-            [tape.tools :as tools :include-macros true]
+            [tape.tools.ui.form :as form :include-macros true]
             [tape.guis7.app.guis.timer.controller :as timer.c]))
 
 ;;; Helpers
@@ -15,7 +15,7 @@
 (defn index
   {::mvc/reg ::mvc/view}
   []
-  (let [lens (tools/lens timer.c/timer timer.c/field)
+  (let [lens (form/lens timer.c/timer timer.c/field)
         progress (lens [:progress])
         duration (r/cursor lens [:duration])]
     [:div.is-bound

@@ -1,6 +1,5 @@
 (ns tape.guis7.app.guis.temperature-converter.view
   (:require [tape.mvc :as mvc :include-macros true]
-            [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.temperature-converter.controller :as temperature-converter.c]))
 
 ;;; Views
@@ -8,11 +7,11 @@
 (defn index
   {::mvc/reg ::mvc/view}
   []
-  (let [celsius @(tools/subscribe [temperature-converter.c/celsius])
-        fahrenheit @(tools/subscribe [temperature-converter.c/fahrenheit])
-        from-celsius #(tools/dispatch [temperature-converter.c/from-celsius
-                                       (-> % .-target .-value)])
-        from-fahrenheit #(tools/dispatch
+  (let [celsius @(mvc/subscribe [temperature-converter.c/celsius])
+        fahrenheit @(mvc/subscribe [temperature-converter.c/fahrenheit])
+        from-celsius #(mvc/dispatch [temperature-converter.c/from-celsius
+                                     (-> % .-target .-value)])
+        from-fahrenheit #(mvc/dispatch
                           [temperature-converter.c/from-fahrenheit
                            (-> % .-target .-value)])]
     [:div.field.columns.is-bound

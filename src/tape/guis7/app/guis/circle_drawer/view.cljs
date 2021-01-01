@@ -1,6 +1,5 @@
 (ns tape.guis7.app.guis.circle-drawer.view
   (:require [tape.mvc :as mvc :include-macros true]
-            [tape.tools :as tools :include-macros true]
             [tape.guis7.app.guis.circle-drawer.controller :as circle-drawer.c]))
 
 ;;; Helpers
@@ -9,39 +8,39 @@
   (let [rect (.getBoundingClientRect (.-currentTarget event))
         x (- (.-clientX event) (.-left rect))
         y (- (.-clientY event) (.-top rect))]
-    (tools/dispatch [circle-drawer.c/create x y])))
+    (mvc/dispatch [circle-drawer.c/create x y])))
 
 (defn- select [event]
   (let [rect (.getBoundingClientRect (.-currentTarget event))
         x (- (.-clientX event) (.-left rect))
         y (- (.-clientY event) (.-top rect))]
-    (tools/dispatch [circle-drawer.c/select x y])))
+    (mvc/dispatch [circle-drawer.c/select x y])))
 
 ;;; Views
 
 (defn index
   {::mvc/reg ::mvc/view}
   []
-  (let [circles @(tools/subscribe [circle-drawer.c/circles])
-        selected @(tools/subscribe [circle-drawer.c/selected])
-        activated? @(tools/subscribe [circle-drawer.c/activated?])
-        editing? @(tools/subscribe [circle-drawer.c/editing?])
-        undo? @(tools/subscribe [circle-drawer.c/undo?])
-        redo? @(tools/subscribe [circle-drawer.c/redo?])
+  (let [circles @(mvc/subscribe [circle-drawer.c/circles])
+        selected @(mvc/subscribe [circle-drawer.c/selected])
+        activated? @(mvc/subscribe [circle-drawer.c/activated?])
+        editing? @(mvc/subscribe [circle-drawer.c/editing?])
+        undo? @(mvc/subscribe [circle-drawer.c/undo?])
+        redo? @(mvc/subscribe [circle-drawer.c/redo?])
         activate (fn [event]
-                   (tools/dispatch [circle-drawer.c/activate])
+                   (mvc/dispatch [circle-drawer.c/activate])
                    (.preventDefault event))]
     [:<>
      [:div.field.is-grouped
       [:p.control
        [:button.button {:disabled (not undo?)
                         :on-click #(when undo?
-                                     (tools/dispatch [circle-drawer.c/undo]))}
+                                     (mvc/dispatch [circle-drawer.c/undo]))}
         "Undo"]]
       [:p.control
        [:button.button {:disabled (not redo?)
                         :on-click #(when redo?
-                                     (tools/dispatch [circle-drawer.c/redo]))}
+                                     (mvc/dispatch [circle-drawer.c/redo]))}
         "Redo"]]]
 
      [:div.circle-drawer {:on-click create :on-mouse-move select}
@@ -55,20 +54,20 @@
       [:div.modal-background]
       [:div.modal-content
        [:button.button.is-primary
-        {:on-click #(tools/dispatch [circle-drawer.c/edit])} "Adjust diameter..."]]
+        {:on-click #(mvc/dispatch [circle-drawer.c/edit])} "Adjust diameter..."]]
       [:button.modal-close.is-large
-       {:on-click #(tools/dispatch [circle-drawer.c/deactivate])}]]
+       {:on-click #(mvc/dispatch [circle-drawer.c/deactivate])}]]
 
      [:div.modal {:class (when editing? "is-active")}
       [:div.modal-background]
       [:div.modal-content
        [:input {:type "range" :step 1 :min 0 :max 100
                 :value (-> circles (get selected) (get 2))
-                :on-change #(tools/dispatch
+                :on-change #(mvc/dispatch
                              [circle-drawer.c/set-radius
                               (-> % .-target .-value js/parseInt)])}]]
       [:button.modal-close.is-large
-       {:on-click #(tools/dispatch [circle-drawer.c/stop-edit])}]]]))
+       {:on-click #(mvc/dispatch [circle-drawer.c/stop-edit])}]]]))
 
 ;;; Module
 

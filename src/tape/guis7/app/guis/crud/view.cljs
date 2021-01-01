@@ -1,8 +1,7 @@
 (ns tape.guis7.app.guis.crud.view
   (:require [tape.mvc :as mvc :include-macros true]
             [tape.router :as router :include-macros true]
-            [tape.tools :as tools :include-macros true]
-            [tape.tools.ui.form :as form]
+            [tape.tools.ui.form :as form :include-macros true]
             [tape.guis7.app.guis.crud.controller :as crud.c]))
 
 ;;; Partials
@@ -12,7 +11,7 @@
    (into [:span.buttons.is-pulled-right] buttons)])
 
 (defn- form-fields []
-  (let [lens (tools/lens crud.c/person crud.c/field)
+  (let [lens (form/lens crud.c/person crud.c/field)
         field (fn [field]
                 (form/field {:type :text, :class "input", :source lens,
                              :field field, :required true}))]
@@ -31,7 +30,7 @@
 (defn index
   {::mvc/reg ::mvc/view}
   []
-  (let [people @(tools/subscribe [crud.c/people])]
+  (let [people @(mvc/subscribe [crud.c/people])]
     [:div.is-bound
      [header "List people"
       [:a.button.is-primary {:href (router/href [crud.c/new])} "New"]]
@@ -48,7 +47,7 @@
              [:a.button {:href (router/href [crud.c/edit {:id id}])} "Edit"]]
             [:div.control
              [:button.button.is-danger
-              {:on-click #(tools/dispatch [crud.c/delete {:id id}])}
+              {:on-click #(mvc/dispatch [crud.c/delete {:id id}])}
               "Delete"]]]]])]]]))
 
 (defn new
@@ -57,7 +56,7 @@
   [:form.is-bound
    [header "New person"
     [:button.button.is-primary
-     {:on-click (form/when-valid #(tools/dispatch [crud.c/save]))} "Create"]]
+     {:on-click (form/when-valid #(mvc/dispatch [crud.c/save]))} "Create"]]
    [form-fields]])
 
 (defn edit
@@ -66,7 +65,7 @@
   [:form.is-bound
    [header "Edit person"
     [:button.button.is-primary
-     {:on-click (form/when-valid #(tools/dispatch [crud.c/save]))} "Update"]]
+     {:on-click (form/when-valid #(mvc/dispatch [crud.c/save]))} "Update"]]
    [form-fields]])
 
 ;;; Module

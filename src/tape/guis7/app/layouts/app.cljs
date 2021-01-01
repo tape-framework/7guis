@@ -1,9 +1,9 @@
 (ns tape.guis7.app.layouts.app
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-            [tape.tools :as tools :include-macros true]
-            [tape.tools.current.controller :as current.c]
+            [tape.mvc :as mvc :include-macros true]
             [tape.router :as router]
+            [tape.tools.current.controller :as current.c]
             [tape.toasts.view :as toasts.v]
             [tape.guis7.app.home.controller :as home.c]
             [tape.guis7.app.guis.counter.controller :as counter.c]
@@ -23,10 +23,10 @@
 (defn- navbar []
   (let [burger-active (r/atom false)]
     (fn []
-      (let [burger-class  (when @burger-active "is-active")
+      (let [burger-class (when @burger-active "is-active")
             burger-toggle #(swap! burger-active not)
-            current-view  @(tools/subscribe [current.c/view])
-            navbar-item   (partial navbar-item* current-view)]
+            current-view @(mvc/subscribe [current.c/view])
+            navbar-item (partial navbar-item* current-view)]
         [:nav.navbar
          [:div.container
           [:div.navbar-brand
