@@ -8,7 +8,7 @@
             [tape.tools.current.controller :as current.c]
             [tape.toasts.controller :as toasts.c]
             [tape.datascript.controller :as datascript.c]
-            [tape.guis7.app.guis.crud.model :as model.m]))
+            [tape.guis7.app.guis.crud.model :as crud.m]))
 
 ;;; Routes
 
@@ -26,7 +26,7 @@
   "Seed and redirect to list."
   {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds]} _]
-  {:fx [[::datascript.c/ds (model.m/maybe-seed ds)]
+  {:fx [[::datascript.c/ds (crud.m/maybe-seed ds)]
         [:dispatch [::router/navigate [::list]]]]})
 
 (defn list
@@ -34,7 +34,7 @@
   [{::datascript.c/keys [ds] :keys [db]} _]
   {:db (-> db
            (assoc ::current.c/view ::index)
-           (assoc ::people (model.m/all ds)))
+           (assoc ::people (crud.m/all ds)))
    ::datascript.c/dump true})
 
 (defn new
@@ -50,12 +50,12 @@
   (let [id (-> params :path :id)]
     {:db (-> db
              (dissoc ::current.c/view)
-             (assoc ::person (model.m/one ds id)))}))
+             (assoc ::person (crud.m/one ds id)))}))
 
 (defn save
   {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds] :keys [db]} _]
-  {::datascript.c/ds (model.m/save ds (::person db))
+  {::datascript.c/ds (crud.m/save ds (::person db))
    :dispatch-n [[::router/navigate [::list]]
                 [::toasts.c/create :success "Person saved"]]})
 
@@ -63,7 +63,7 @@
   {::mvc/reg ::mvc/event-fx}
   [{::datascript.c/keys [ds]} [_ args]]
   (let [id (:id args)]
-    {::datascript.c/ds (model.m/delete ds id)
+    {::datascript.c/ds (crud.m/delete ds id)
      :dispatch-n [[::router/navigate [::list]]
                   [::toasts.c/create :success "Person deleted"]]}))
 
