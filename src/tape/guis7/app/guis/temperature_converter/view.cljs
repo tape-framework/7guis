@@ -1,6 +1,7 @@
 (ns tape.guis7.app.guis.temperature-converter.view
   (:require [tape.mvc :as mvc :include-macros true]
-            [tape.guis7.app.guis.temperature-converter.controller :as temperature-converter.c]))
+            [tape.guis7.app.guis.temperature-converter.controller
+             :as temperature-converter.c]))
 
 ;;; Views
 
