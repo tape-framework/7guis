@@ -10,19 +10,19 @@ See https://eugenkiss.github.io/7guis[https://eugenkiss.github.io/7guis].
 === Points of interest
 
 Startup::
-* src/tape/guis7/core.cljs
-* resources/tape/guis7/config.edn
-* dev/src/tape/guis7/dev.cljs
+* src/tape/guis7/link:src/tape/guis7/core.cljs[core.cljs]
+* resources/tape/guis7/link:resources/tape/guis7/config.edn[config.edn]
+* dev/src/tape/guis7/link:dev/src/tape/guis7/dev.cljs[dev.cljs]
 
 Layout::
-* src/tape/guis7/app/layouts/app.cljs
+* src/tape/guis7/app/layouts/link:src/tape/guis7/app/layouts/app.cljs[app.cljs]
 
 Events and Views::
-* src/tape/guis7/app/guis/counter/controller.cljs
-* src/tape/guis7/app/guis/counter/view.cljs
+* src/tape/guis7/app/guis/counter/link:src/tape/guis7/app/guis/counter/controller.cljs[controller.cljs]
+* src/tape/guis7/app/guis/counter/link:src/tape/guis7/app/guis/counter/view.cljs[view.cljs]
 
 Interceptors and Signals::
-* src/tape/guis7/app/guis/temperature_converter/controller.cljs
+* src/tape/guis7/app/guis/temperature_converter/link:src/tape/guis7/app/guis/temperature_converter/controller.cljs[controller.cljs]
 
 === Usage
 
